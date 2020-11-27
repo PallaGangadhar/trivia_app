@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Tivia App</title>
+    </head>
+    <body>
+        <form name='' method='POST'>
+        {% csrf_token %}
+            <label>Who is the best cricketer in the world?</label>
+            {% for player in players_list %}
+                <br/><input type="radio" id="{{player.name}}" name="cricketers" value="{{player.id}}">
+            <label for="{{player.name}}">{{player.name}}</label>
+           
+            {% endfor %}
+           
+            <br/><input type='submit' value='Next' name='submit'/>
+        </form>
+    </body>
+</html>

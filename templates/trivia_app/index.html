@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>Tivia App</title>
+    </head>
+    <body>
+    <h2><center>Welcom to Trivia</center></h2>
+        <form name='' method='POST'>
+        {% csrf_token %}
+       <p> <center>
+            <label>What is your name?</label>
+            <input type='text' name='name' value='' required/><br/>
+            <br/><input type='submit' value='Next' name='submit'/>
+        </center></p>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Tivia App</title>
+    </head>
+    <body>
+        <form name='' method='POST'>
+        {% csrf_token %}
+            <label>Who is the best cricketer in the world?</label>
+            {% for color in colors %}
+                <br/><input type="checkbox" id="White" name="colors[]" value="{{color.id}}">
+                <label for="White">{{color.color}}</label>
+            {% endfor %}
+           
+            
+            <br/><input type='submit' value='Next' name='submit'/>
+            {{error_msg}}
+        </form>
+    </body>
+</html>

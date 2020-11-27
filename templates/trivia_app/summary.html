@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>Tivia App</title>
+    </head>
+    <body>
+    {% if msg %}
+        {{msg}}
+    {% else %}
+
+        <h2>Summary</h2>
+            <p>Hello, "{{answer_details.name}}",<br/>
+            <p>Here are the answers selected: </p>
+           
+            <p>Who is the best cricketer in the world?</p>
+            <p>Answer: "{{best_cricketer.fav_player}}"</p>
+            <p>What are the colors in the national flag?</p>
+           
+            <p>Answer:"
+            {% for color in colors %}
+                {% if forloop.last %}
+                {{color.color}}.
+               
+               {% else %}
+                {{color.color}},
+               
+                {% endif %}
+            {% endfor %}" 
+            <p>
+           
+    {% endif %}
+        <a href='../'>Finish</a>
+        <a href='../history'>History</a>
+    </body>
+</html>

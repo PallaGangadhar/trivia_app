@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>Tivia App</title>
+    </head>
+    <body>
+        <h2>History</h2>
+        
+        {% for data in persons_details %}
+        <p>
+            Game1: {{data.created_on}}<br/>
+            Name: {{data.name}}<br/>
+           Who is the best cricketer in the world:<br/>
+            Answer:{{data.person_crickter.all.first.fav_player}}<br/>
+            What are the colors in the national flag.<br/>
+            Answer:{% for color in data.person_flag_color.all %}
+                {{color.color}},
+            {% endfor %}
+        </p><br/>
+        {% endfor %}
+         <a href='../'>Finish</a>
+        <a href='../history'>History</a>
+       
+    </body>
+</html>
