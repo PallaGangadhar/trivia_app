@@ -31,17 +31,21 @@ def select_flag_colors(request,pk):
     """ Save Flag Colors  """
     error_msg = ''
     colors = Color.objects.all()
-    if request.method == 'POST':
-        person_object = Person.objects.get(id=pk)
-        colors = request.POST.getlist('colors[]')
-        if len(colors) == 0:
-            error_msg = 'Please select one or more colors'
-        else:
-            for color in colors:
-                flag_object = Color.objects.get(id=color)
-                flag_color = IndianFlagcolor.objects.create(color=flag_object, person=person_object)
-                flag_color.save()
-        return redirect('summary', pk=pk)
+    try:
+        if request.method == 'POST':
+            person_object = Person.objects.get(id=pk)
+            colors = request.POST.getlist('colors[]')
+            if len(colors) == 0:
+                error_msg = 'Please select one or more colors'
+            else:
+                for color in colors:
+                    flag_object = Color.objects.get(id=color)
+                    flag_color = IndianFlagcolor.objects.create(color=flag_object, person=person_object)
+                    flag_color.save()
+            return redirect('summary', pk=pk)
+    except:
+        return render(request, 'trivia_app/select_flag_color.html',{'error_msg':error_msg, 'colors':colors},status=500)
+
     return render(request, 'trivia_app/select_flag_color.html',{'error_msg':error_msg, 'colors':colors})
 
 def summary(request,pk):
