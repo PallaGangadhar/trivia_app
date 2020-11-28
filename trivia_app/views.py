@@ -11,20 +11,24 @@ def homepage(request):
         name_saved = Person.objects.create(name=request.POST['name'])
         name_saved.save()
         return redirect('select_cricketer', pk=name_saved.id)
-    return render(request, 'trivia_app/index.html',{})
+    return render(request, 'trivia_app/index.html',{}, status=200)
 
 def select_cricketers(request,pk):
     """ Save crcketers name  """
     players = FavPlayer.objects.all()
-    if request.method == 'POST':
-        try:
-            person_object = Person.objects.get(id=pk)
-            player_obj = FavPlayer.objects.get(id=request.POST['cricketers'])
-            cricketers_name = BestCrickter.objects.create(fav_player=player_obj,person=person_object)
-            cricketers_name.save()
-            return redirect('select_flag_colors', pk=pk)
-        except:
-            return render(request, 'trivia_app/select_cricketer.html',{'msg':'Please select cricketrs','players_list':players}, status=500,)
+    if not players:
+        return redirect('homepage')
+    
+    else:
+        if request.method == 'POST':
+            try:
+                person_object = Person.objects.get(id=pk)
+                player_obj = FavPlayer.objects.get(id=request.POST['cricketers'])
+                cricketers_name = BestCrickter.objects.create(fav_player=player_obj,person=person_object)
+                cricketers_name.save()
+                return redirect('select_flag_colors', pk=pk)
+            except:
+                return render(request, 'trivia_app/select_cricketer.html',{'msg':'Please select cricketrs','players_list':players})
     return render(request, 'trivia_app/select_cricketer.html', {'players_list':players})
 
 def select_flag_colors(request,pk):
@@ -44,7 +48,7 @@ def select_flag_colors(request,pk):
                     flag_color.save()
             return redirect('summary', pk=pk)
     except:
-        return render(request, 'trivia_app/select_flag_color.html',{'error_msg':error_msg, 'colors':colors},status=500)
+        return render(request, 'trivia_app/select_flag_color.html',{'error_msg':error_msg, 'colors':colors}, status=500)
 
     return render(request, 'trivia_app/select_flag_color.html',{'error_msg':error_msg, 'colors':colors})
 
@@ -63,6 +67,7 @@ def history(request):
     """ Show all details of each person related data """
     
     persons_details = Person.objects.all()
+    
     if not persons_details:
         return render(request, 'trivia_app/history.html',{'msg':'No History Found'},status=404)
     return render(request, 'trivia_app/history.html',{'persons_details':persons_details})

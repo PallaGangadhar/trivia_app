@@ -3,8 +3,11 @@
         <title>Tivia App</title>
     </head>
     <body>
-        <h2>History</h2>
-        
+        <h2>History</h2><br/>
+        {% if msg %}
+        dg
+           <h3> {{msg}}</h3>
+        {% else %}
         {% for data in persons_details %}
         <p>
             Game1: {{data.created_on}}<br/>
@@ -17,8 +20,9 @@
             {% endfor %}
         </p><br/>
         {% endfor %}
-         <a href='../'>Finish</a>
-        <a href='../history'>History</a>
+    {% endif %}
+        <br/> <a href='../'>Finish</a>
+        <br/><a href='../history'>History</a>
        
     </body>
 </html>
